@@ -1,25 +1,22 @@
 from . import db
-from datetime import datetime
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    subcategories = db.Column(db.PickleType, nullable=False)
-    type = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(80))
+    type = db.Column(db.String(50))
+    subcategories = db.Column(db.String(255))
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    category = db.Column(db.String(100), nullable=False)
-    subcategory = db.Column(db.String(100), nullable=False)
-    image_url = db.Column(db.String(200))
-    status = db.Column(db.String(50), default="available")
+    title = db.Column(db.String(120))
+    description = db.Column(db.String(255))
+    price = db.Column(db.Float)
+    category = db.Column(db.String(80))
+    subcategory = db.Column(db.String(80))
+    image_url = db.Column(db.String(255))
+    status = db.Column(db.String(50))
 
 class Purchase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, nullable=False)
-    user_email = db.Column(db.String(100), nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    status = db.Column(db.String(50), default="Booked")
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    user_email = db.Column(db.String(120))
